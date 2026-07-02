@@ -1,0 +1,42 @@
+{% load static %}
+{% block head %}
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'movies/CSS/style.css' %}">
+{% endblock head %}
+
+<div class="container my-4">
+  <h2 class="text-center mb-4 text-primary">Songs</h2>
+  <div class="songs-row">
+    {% for song in songs %}
+      <div class="song-card-wrapper">
+        <div class="card song-card shadow-sm text-center p-3 border-0 rounded-4 bg-light h-100 position-relative">
+
+          <!-- Circle Poster with Hover Buttons -->
+          <div class="circle-container">
+            <img src="{{ song.thumbnail.url }}" alt="{{ song.title }}">
+
+            <div class="hover-buttons">
+              <button onclick="document.getElementById('audio-{{ song.id }}').play()" class="btn btn-sm btn-light">
+                Play
+              </button>
+              {% comment %} <a href="{{ song.audio_file.url }}" download class="btn btn-sm btn-primary">
+                Download
+              </a> {% endcomment %}
+            </div>
+          </div>
+
+          <!-- Song Title -->
+          <div class="song-title">{{ song.title }}</div>
+
+          <!-- Hidden Audio -->
+          <audio id="audio-{{ song.id }}" class="d-none">
+            <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-muted text-center">No songs available for this movie.</p>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,58 @@
+{% extends "navbar/base.html" %}
+{% load static %}
+
+{% block title %}Marathi Movies{% endblock %}
+
+{% block head %}
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'movies/CSS/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-primary text-center mb-5 fw-bold">Marathi Movies</h2>
+  <div class="row g-4 justify-content-center">
+    {% for movie in movies %}
+    <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+
+          <!-- Front Poster -->
+          <div class="flip-card-front">
+            {% if movie.poster %}
+              <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+            {% else %}
+              <img src="{% static 'movies/images/default.jpg' %}" alt="Default Poster">
+            {% endif %}
+          </div>
+
+          <!-- Back Info -->
+          <div class="flip-card-back">
+            <h5>{{ movie.title }}</h5>
+            <p class="desc">{{ movie.description|truncatechars:100 }}</p>
+            <p class="genre">{{ movie.genre.all|join:", " }} | {{ movie.release_date }}</p>
+            <p class="price">
+              Ticket Price: 
+              {% if movie.price == 0 %}
+                Free
+              {% else %}
+                ₹{{ movie.price }}
+              {% endif %}
+            </p>
+            <a href="{% url 'movie_detail' movie.pk %}" class="btn btn-primary mt-2">More Info</a>
+
+            <div class="star-rating mt-2">
+            {% for i in "12345" %}
+              <i class="bi bi-star-fill text-warning"></i>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'navbar/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .rating-card {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 40px 30px;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .rating-card h3 {
+        font-weight: 600;
+        color: #007bff;
+    }
+
+    .form-range {
+        accent-color: #FFD700;
+        height: 10px;
+    }
+
+    #ratingValue {
+        font-size: 1.8rem;
+        color: #ff8800;
+        font-weight: bold;
+    }
+
+    .btn-yellow {
+        background-color: #FFD700;
+        color: #000;
+        font-weight: 600;
+        border: none;
+    }
+
+    .btn-yellow:hover {
+        background-color: #e6c200;
+    }
+
+    .btn-outline-secondary {
+        font-weight: 600;
+    }
+</style>
+
+<div class="rating-card">
+    <h3 class="text-center mb-4">Rate "{{ movie.title }}"</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="ratingSlider" class="form-label fw-semibold">How many stars would you give this movie?</label>
+            <input 
+                type="range" 
+                min="0" 
+                max="10" 
+                value="{{ existing_rating.rating|default:0 }}" 
+                name="rating"
+                class="form-range" 
+                id="ratingSlider" 
+                oninput="updateRatingValue(this.value)">
+            
+            <div class="text-center">
+                <span id="ratingValue">
+                    {{ existing_rating.rating|default:"0" }}/10
+                </span>
+            </div>
+
+            <p class="text-muted text-center mt-2">→ Slide to rate between 0 and 10</p>
+        </div>
+
+        <div class="text-center d-flex justify-content-center gap-3">
+            <button type="submit" class="btn btn-yellow px-4 rounded-pill">Submit Rating</button>
+            <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary px-4 rounded-pill">Go Back</a>
+        </div>
+    </form>
+
+    {% if existing_rating %}
+    <p class="mt-4 text-success text-center">
+        Your previous rating: <strong>{{ existing_rating.rating }}/10</strong>
+    </p>
+    {% endif %}
+</div>
+
+<script>
+    function updateRatingValue(val) {
+        document.getElementById('ratingValue').innerText = val + "/10";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.getElementById("ratingSlider");
+        updateRatingValue(slider.value);
+    });
+</script>
+{% endblock %}

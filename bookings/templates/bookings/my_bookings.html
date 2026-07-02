@@ -1,0 +1,87 @@
+{% extends "navbar/base.html" %}
+{% load static %}
+
+{% block head %}
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'movies/CSS/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="container py-5">
+    <h3 class="mb-4 text-primary">My Bookings</h3>
+
+    {% if bookings %}
+    <div class="row g-4">
+        {% for booking in bookings %}
+        <div class="col-md-6 col-lg-4">
+            <div class="flip-card h-100">
+                <div class="flip-card-inner">
+
+                    <!-- FRONT -->
+                    <div class="flip-card-front">
+                        {% if booking.movie.poster %}
+                            <img src="{{ booking.movie.poster.url }}"
+                                 class="card-img-top"
+                                 alt="{{ booking.movie.title }}"
+                                 style="height: 100%; width: 100%; object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'images/no-poster.png' %}"
+                                 class="card-img-top"
+                                 alt="No poster available"
+                                 style="height: 100%; width: 100%; object-fit: cover;">
+                        {% endif %}
+                    </div>
+
+                    <!-- BACK -->
+                    <div class="flip-card-back">
+                        <h5>{{ booking.movie.title }}</h5>
+
+                        <p class="price">
+                            Ticket Price: 
+                            {% if booking.movie.price == 0 %}
+                            Free
+                            {% else %}
+                            ₹{{ booking.movie.price }}
+                            {% endif %}
+                        </p>
+
+                        <p class="release-date">Show Date: {{ booking.show_date }}</p>
+
+                        <p class="desc">Seats Booked: 
+                            {% for seat in booking.seats.all %}
+                            {{ seat.seat_number }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+
+                        <p class="desc">Total Tickets: {{ booking.attendees.count }}</p>
+
+                        <p class="desc small">Booked on: {{ booking.created_at|date:"d M Y, H:i" }}</p>
+
+                        <!-- Actions -->
+                        <a href="{% url 'download_ticket_pdf' booking.id %}" class="more-info-btn mt-2">
+                            Download Ticket
+                        </a>
+
+                        <form method="post" action="{% url 'cancel_booking' booking.id %}" onsubmit="return confirm('Cancel booking?');" style="margin-top: 10px;">
+                            {% csrf_token %}
+                            <button type="submit" class="more-info-btn cancel-btn mt-2">
+                                Cancel Booking
+                            </button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="alert alert-info text-center mt-4">
+            You have no bookings yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

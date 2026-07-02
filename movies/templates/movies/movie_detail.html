@@ -1,0 +1,97 @@
+{% extends "navbar/base.html" %}
+{% load static %}
+{% block title %}Movie Detail Page{% endblock title %}
+
+{% block head %}
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'movies/CSS/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="movie-detail-container">
+  <div class="top-section">
+    <div class="movie-poster">
+      {% if movie.poster %}
+        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+      {% endif %}
+    </div>
+
+    <div class="movie-info">
+      <h1 class="movie-title">{{ movie.title }}</h1>
+      <p><strong>Genre:</strong> {% for genre in movie.genre.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+      <p><strong>Language:</strong> {{ movie.language }}</p>
+      <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+      <p><strong>Description:</strong> {{ movie.description }}</p>
+
+      <div class="movie-buttons">
+        {% if movie.video_file %}
+          <a href="#" onclick="openModal('trailerModal')">Trailer</a>
+        {% endif %}
+        <a href="#" onclick="openModal('songsModal')">Songs</a>
+        <a href="#" onclick="openModal('castModal')">Cast</a>
+
+        {% if user.is_authenticated %}
+          <a href="{% url 'submit_rating' movie.pk %}">Rate Now</a>
+          <a href="{% url 'select_showtime' movie.pk %}">Book Now</a>
+        {% else %}
+          <a href="{% url 'login' %}?next={% url 'movie_detail' movie.pk %}">Login to Book</a>
+        {% endif %}
+      </div>
+    </div> 
+  </div>
+</div>
+
+<!-- Modals -->
+{% if movie.video_file %}
+<div id="trailerModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('trailerModal')">&times;</span>
+    <video controls>
+      <source src="{{ movie.video_file.url }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+{% endif %}
+
+<div id="songsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('songsModal')">&times;</span>
+    {% include "movies/songs.html" %}
+  </div>
+</div>
+
+<div id="castModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('castModal')">&times;</span>
+    {% include "movies/cast.html" %}
+  </div>
+</div>
+
+<!-- Back Button -->
+<div class="text-center mt-5">
+  <a href="{% url 'home' %}" class="btn-primary-custom">Back to Home</a>
+</div>
+
+<!-- JS -->
+<script>
+  function openModal(id) {
+    document.getElementById(id).style.display = 'block';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    ['trailerModal', 'songsModal', 'castModal'].forEach(function(id) {
+      const modal = document.getElementById(id);
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }
+</script>
+{% endblock %}

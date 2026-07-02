@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Ticket</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f3f6;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .ticket {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 850px;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;  /* poster + info side by side */
+      position: relative;
+    }
+
+    /* Left Poster */
+    .ticket-poster {
+      flex: 0 0 220px;         /* fixed width for poster area */
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .ticket-poster img {
+      width: 200px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* Right Info */
+    .ticket-info {
+      flex: 1;                 /* remaining space */
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ticket-header {
+      font-size: 26px;
+      font-weight: bold;
+      color: #dc3545;
+      margin-bottom: 20px;
+    }
+
+    .ticket-details p {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+
+    .ticket-label {
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .booking-id {
+      font-size: 14px;
+      color: #6c757d;
+      margin-top: 12px;
+    }
+
+    .qr-code {
+      width: 110px;
+      height: 110px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 5px;
+      background: #f8f9fa;
+      margin-top: 15px;
+    }
+
+    /* Cut edges */
+    .ticket::before,
+    .ticket::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #f1f3f6;
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+    .ticket::before { left: -15px; }
+    .ticket::after { right: -15px; }
+
+    /* Footer */
+    .ticket-footer {
+      text-align: center;
+      font-size: 14px;
+      padding: 12px;
+      color: #555;
+      border-top: 1px solid #eee;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="ticket">
+  <!-- Left: Movie Poster -->
+  <div class="ticket-poster">
+    <img src="{{ movie_poster }}" alt="{{ booking.movie.title }}">
+  </div>
+
+  <!-- Right: Ticket Info -->
+  <div class="ticket-info">
+    <div>
+      <div class="ticket-header">🎬 Movie Ticket</div>
+      <div class="ticket-details">
+        <p><span class="ticket-label">Movie:</span> {{ booking.movie.title }}</p>
+        <p><span class="ticket-label">User:</span> {{ booking.user.name }}</p>
+        <p><span class="ticket-label">City:</span> {{ booking.user.city }}</p>
+        <p><span class="ticket-label">Show Date:</span> {{ booking.show_date|date:"D, d M Y" }}</p>
+        <p><span class="ticket-label">Booking Time:</span> {{ booking.created_at|date:"d M Y, h:i A" }}</p>
+        <p><span class="ticket-label">Seats:</span>
+          {% for seat in booking.seats.all %}
+            {{ seat.seat_number }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="booking-id">Booking ID: #{{ booking.id }}</div>
+      <!-- QR Code -->
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data={{ booking.id }}" alt="QR Code" class="qr-code">
+    </div>
+  </div>
+</div>
+
+<div class="ticket-footer">
+  Please carry this ticket to the theatre. Scan the QR at entry. Enjoy your movie! 🍿
+</div>
+
+</body>
+</html>

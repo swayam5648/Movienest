@@ -1,0 +1,68 @@
+{% extends "navbar/base.html" %}
+{% load static %}
+{% load bookings.custom_filters %}
+
+{% block head %}
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'bookings/CSS/style.css' %}">
+{% block title %}Seat Selection Page{% endblock title %}
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h3 class="text-center">"{{ movie.title }}" - Seat Selection</h3>
+  <p class="text-center text-muted">Show Date: {{ show_date }}</p>
+
+  <!-- SCREEN -->
+  <div class="screen">SCREEN</div>
+
+  <!-- Legend -->
+  <div class="legend d-flex justify-content-center gap-4 mb-4">
+    <div class="legend-item"><div class="legend-color legend-available"></div> Available</div>
+    <div class="legend-item"><div class="legend-color legend-booked"></div> Booked</div>
+    <div class="legend-item"><div class="legend-color legend-selected"></div> Selected</div>
+    <div class="legend-item"><div class="legend-color legend-vip"></div> VIP</div>
+    <div class="legend-item"><div class="legend-color legend-wheelchair"></div> Wheelchair</div>
+  </div>
+
+  <!-- Seat Grid -->
+  <form method="post">
+    {% csrf_token %}
+    
+    {% for row in rows %}
+      <div class="seat-row">
+        {% for col in cols %}
+          {% if col == 6 %}
+            <div class="aisle-space"></div> <!-- Aisle between seats -->
+          {% endif %}
+          {% with col_str=col|stringformat:"s" %}
+            {% with key=row|add:col_str %}
+              {% with seat=seat_map|get_item:key %}
+                {% if seat %}
+                  {% if seat.is_booked %}
+                    <label class="seat booked">
+                      <input type="checkbox" disabled>
+                      <span>{{ seat.seat_number }}</span>
+                    </label>
+                  {% else %}
+                    <label class="seat available {{ seat.seat_type }}">
+                      <input type="checkbox" name="seats" value="{{ seat.id }}">
+                      <span>{{ seat.seat_number }}</span>
+                    </label>
+                  {% endif %}
+                {% else %}
+                  <div class="seat" style="visibility: hidden;"></div>
+                {% endif %}
+              {% endwith %}
+            {% endwith %}
+          {% endwith %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-success px-4 py-2">Confirm Seats</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

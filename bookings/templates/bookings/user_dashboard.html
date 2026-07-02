@@ -1,0 +1,40 @@
+{% extends "navbar/base.html" %}
+{% load static %}
+{% block title %}User Dashboard{% endblock title %}
+{% block head %}
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'bookings/CSS/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="sidebar">
+    <h5 class="text-center mb-4">Movie Booking</h5>
+    <a href="{% url 'user_dashboard' %}"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+    <a href="{% url 'my_bookings' %}"><i class="fas fa-ticket-alt me-2"></i> My Bookings</a>
+    <a href="#"><i class="fas fa-credit-card me-2"></i> Payments</a>
+    <a href="{% url 'my_reviews' %}"><i class="fas fa-comment-dots me-2"></i> Reviews</a>
+    <a href="{% url 'profile' %}"><i class="fas fa-cog me-2"></i> Settings</a>
+</div>
+
+<div class="main-content">
+    <div class="welcome-text">Welcome, {{ request.user.name }}!</div>
+
+    <div class="dashboard-cards">
+        <div class="card-box">
+            <i class="fas fa-calendar-alt"></i>
+            <h6>My Bookings</h6>
+            <p>{{ booking_count }}</p>
+        </div>
+        <div class="card-box">
+            <i class="fas fa-money-bill-wave"></i>
+            <h6>Payments</h6>
+            <p>₹{{ total_payment|default:"0.00" }}</p>
+        </div>
+        <div class="card-box">
+            <i class="fas fa-comments"></i>
+            <h6>My Reviews</h6>
+            <p>{{ review_count }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

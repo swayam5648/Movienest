@@ -1,0 +1,294 @@
+/* Base.html */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f8f9fa; /* light grey */
+  color: #212529; /* dark text */
+}
+
+a {
+  color: #0d6efd; /* Bootstrap primary */
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Navbar */
+.navbar {
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #ffffff !important; /* white navbar */
+  border-bottom: 1px solid #dee2e6;
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+  padding: 0;
+  margin-right: 20px;
+  color: #0d6efd !important;
+}
+
+.navbar-nav .nav-link {
+  color: #333 !important;
+  margin-right: 10px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #000 !important;
+  transform: scale(1.05);
+  transition: 0.3s ease;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-item {
+  color: #212529;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+  color: #0d6efd;
+}
+
+/* Search input */
+form .form-control {
+  background-color: #ffffff;
+  color: #212529;
+  border: 1px solid #ced4da;
+}
+
+form .form-control::placeholder {
+  color: #6c757d;
+}
+
+form .btn-warning {
+  font-weight: bold;
+  color: #212529;
+  background-color: #ffc107;
+  border: none;
+}
+
+form .btn-warning:hover {
+  background-color: #e0a800;
+  color: #000;
+}
+
+/* Logout button */
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #ff4d6d;
+}
+
+/* Footer */
+footer {
+  background-color: #f1f1f1;
+  color: #6c757d;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Flash Messages */
+.alert {
+  font-weight: 500;
+}
+
+/* ---------- Register Page ---------- */
+/* Register Card */
+.register-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #dee2e6;
+  padding: 2rem;
+}
+
+/* Heading Text */
+.glow-text {
+  color: #0d6efd;
+  text-shadow: none;
+}
+
+/* Input fields */
+.input1 {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  color: #212529;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+}
+
+.input1:focus, .input1:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+/* Register button */
+.btn-rose {
+  background-color: #0d6efd;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-rose:hover {
+  background-color: #0b5ed7;
+}
+
+/* Link style */
+.link {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Divider style */
+.position {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+.border-top {
+  border-top: 1px solid #dee2e6 !important;
+}
+
+/* ---------- Login Page ---------- */
+.login-box {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.login-box h2 {
+  font-weight: 600;
+  color: #0d6efd;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+.form-control.input1 {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+}
+
+.form-control.input1:focus {
+  border-color: #0d6efd;
+}
+
+.btn-login {
+  background-color: #0d6efd;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #0d6efd;
+}
+
+.text-small {
+  font-size: 0.875rem;
+}
+
+.link {
+  color: #0d6efd;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Dark mode theme */
+/* Default Light Theme */
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .navbar {
+  background-color: #1e1e1e !important;
+}
+
+body.dark-mode .dropdown-menu {
+  background-color: #2a2a2a;
+}
+
+body.dark-mode .nav-link, body.dark-mode .navbar-brand {
+  color: #f8f9fa !important;
+}
+
+body.dark-mode .btn {
+  color: #fff;
+}
+
+body.dark-mode .movie-detail {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+body.dark-mode .btn-secondary {
+  background-color: #444;
+  color: #fff;
+}
+
+/* footer */
+footer {
+  position: relative; 
+  z-index: 100; 
+}
+footer a:hover {
+  color: #ffc107 !important;
+  text-decoration: underline;
+}
+
+footer i {
+  vertical-align: middle;
+}
+
+.max-w-600 {
+  max-width: 600px;
+}

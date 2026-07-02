@@ -1,0 +1,50 @@
+{% extends "navbar/base.html" %}
+{% load static %}
+{% block head %}
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'bookings/CSS/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="edit-profile-container">
+    <h2>Edit Profile</h2>
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="id_name" class="form-label">Full Name</label>
+        {{ form.name }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_email" class="form-label">Email Address</label>
+        {{ form.email }}
+      </div>
+
+      <div class="mb-4">
+        <label for="id_city" class="form-label">City</label>
+        {{ form.city }}
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <a href="{% url 'user_dashboard' %}" class="btn btn-save">Save</a>
+          {% comment %} <button type="submit" class="btn btn-save">Save</button> {% endcomment %}
+      
+        <a href="{% url 'user_dashboard' %}" class="btn btn-cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

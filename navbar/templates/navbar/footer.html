@@ -1,0 +1,42 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'navbar/CSS/style.css' %}">
+</head>
+
+<footer class="bg-dark text-light py-4 mt-auto">
+    <div class="container">
+        <div class="row text-center text-md-start align-items-center">
+            <!-- Logo & Tagline -->
+            <div class="col-12 col-md-4 mb-4 mb-md-0">
+                <img src="{% static 'navbar/images/logo.png' %}" alt="MovieNest Logo" height="45" class="mb-2">
+                <p class="mb-0 small">Your favorite place to book movie tickets online.<br>Fast, Simple & Secure</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-12 col-md-4 mb-4 mb-md-0">
+                <h6 class="text-uppercase">Quick Links</h6>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'home' %}" class="text-light text-decoration-none">Home</a></li>
+                    <li><a href="{% url 'marathi_movies' %}" class="text-light text-decoration-none">Marathi Movies</a></li>
+                    <li><a href="{% url 'contact' %}" class="text-light text-decoration-none">Contact Us</a></li>
+                    <li><a href="{% url 'about' %}" class="text-light text-decoration-none">About</a></li>
+                </ul>
+            </div>
+
+            <!-- Social Media -->
+            <div class="col-12 col-md-4">
+                <h6 class="text-uppercase">Follow Us</h6>
+                <a href="#" class="text-light d-block text-decoration-none"><i class="bi bi-facebook me-2"></i>Facebook</a>
+                <a href="#" class="text-light d-block text-decoration-none"><i class="bi bi-instagram me-2"></i>Instagram</a>
+                <a href="#" class="text-light d-block text-decoration-none"><i class="bi bi-twitter me-2"></i>Twitter</a>
+            </div>
+        </div>
+
+        <hr class="bg-light my-3">
+
+        <!-- Copyright -->
+        <div class="text-center small">
+            <p class="mb-0">© 2025 <strong>MovieNest</strong>. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

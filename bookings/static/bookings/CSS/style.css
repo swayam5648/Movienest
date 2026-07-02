@@ -1,0 +1,356 @@
+/* Select_showtime.html */
+.showtime-wrapper {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.movie-details {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.movie-details img {
+    max-width: 200px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.movie-details h2 {
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.movie-meta {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.movie-price {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #198754;
+}
+
+.theatre-block {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    background: #f9f9f9;
+}
+
+.theatre-info {
+    flex: 1;
+}
+
+.theatre-info h5 {
+    margin: 0;
+    font-weight: 600;
+    color: #0d6efd;
+}
+
+.theatre-info small {
+    display: block;
+    color: #6c757d;
+    margin-top: 4px;
+}
+
+.showtime-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 600px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.showtime-btn {
+    background-color: #fff;
+    color: #198754;
+    border: 1px solid #198754;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    min-width: 90px;
+    transition: 0.3s;
+}
+
+.showtime-btn:hover {
+    background-color: #198754;
+    color: #fff;
+}
+
+.no-showtime {
+    color: #999;
+    font-style: italic;
+}
+
+/* Select_Seats.html */
+.screen {
+    text-align: center;
+    font-weight: bold;
+    background: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px auto 30px;
+    max-width: 500px;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.seat {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.seat input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.seat.available {
+    background-color: #28a745;
+    color: white;
+}
+
+.seat.booked {
+    background-color: #dc3545;
+    color: white;
+    cursor: not-allowed;
+}
+
+.seat.vip {
+    background-color: #6f42c1; 
+    color: white;
+}
+
+.seat.wheelchair {
+    background-color: #17a2b8; 
+    color: white;
+}
+
+.seat input:checked ~ span {
+    background-color: #ffc107;
+    color: black;
+    border-radius: 6px;
+    padding: 8px;
+    display: inline-block;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.legend-available { background-color: #28a745; } 
+.legend-booked { background-color: #dc3545; }
+.legend-selected { background-color: #ffc107; }
+.legend-vip { background-color: #6f42c1; }
+.legend-wheelchair { background-color: #17a2b8; }
+
+.aisle-space {
+    width: 40px;
+}
+
+/* Edit_profile.html */
+.edit-profile-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 40px 30px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.edit-profile-container h2 {
+    font-weight: 700;
+    font-size: 28px;
+    color: #0d6efd;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-label {
+    font-weight: 400;
+    margin-bottom: 8px;
+    display: block;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 12px;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+.btn-save {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 12px;
+    border: none;
+}
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 12px;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-cancel:hover, .btn-save:hover {
+    opacity: 0.1;
+}
+
+/* User_Dashboard.html */
+body {
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 230px;
+    background-color: #2d3436;
+    color: white;
+    padding-top: 1rem;
+    z-index: 1;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    color: white;
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: #636e72;
+}
+
+.main-content {
+    margin-left: 230px;
+    padding: 30px;
+}
+
+.welcome-text {
+    font-size: 36px;
+    font-weight: bold;
+    color: #0d6efd;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.dashboard-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.card-box {
+    background-color: white;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 280px;
+    transition: transform 0.2s ease;
+}
+
+.card-box:hover {
+    transform: scale(1.03);
+}
+
+.card-box i {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #0d6efd;
+}
+
+.card-box h6 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.card-box p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    color: #000;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .dashboard-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card-box {
+        width: 90%;
+    }
+}

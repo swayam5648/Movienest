@@ -1,0 +1,37 @@
+{% load static %}
+
+{% block head %}
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'movies/CSS/style.css' %}">
+{% endblock head %}
+
+{% if movie.cast.all %}
+  <hr class="mt-5 mb-4">
+  <h4 class="fw-bold text-center text-primary">Cast</h4>
+
+  <div class="row justify-content-center">
+    {% for member in movie.cast.all %}
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center mb-4 cast-card">
+
+        {% if member.profile_image %}
+          <img src="{{ member.profile_image.url }}" alt="{{ member.actor_name }}">
+        {% else %}
+          <img src="{% static 'movies/cast/default.jpg' %}" alt="{{ member.actor_name }}">
+        {% endif %}
+
+        <div class="cast-tooltip">
+          {% if member.character_name %}
+            as {{ member.character_name }}
+          {% else %}
+            No role info
+          {% endif %}
+        </div>
+
+        <p class="cast-name mt-2">{{ member.actor_name }}</p>
+        {% if member.character_name %}
+          <small class="cast-character d-block d-md-none">as {{ member.character_name }}</small>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

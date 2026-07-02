@@ -1,0 +1,57 @@
+{% extends 'navbar/base.html' %}
+{% load static %}
+
+{% block head %}
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'bookings/CSS/style.css' %}">
+{% block title %}Movie ShowTime Page{% endblock title %}
+{% endblock head %}
+
+{% block content %}
+<div class="showtime-wrapper">
+
+  <!-- Movie Details -->
+  <div class="movie-details">
+    {% if movie.poster %}
+      <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+    {% endif %}
+    <h2>{{ movie.title }}</h2>
+    <div class="movie-meta">
+      Genre:
+      {% for g in movie.genre.all %}
+        {{ g.name }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      | Release Date: {{ movie.release_date }}
+    </div>
+    <p>{{ movie.description }}</p>
+    <div class="movie-price">Price: ₹{{ movie.price }}</div>
+  </div>
+
+  <!-- Showtimes -->
+  {% for date in show_dates %}
+    <div class="mb-3">
+      <h4 class="fw-bold">Dates:</h4>
+      <p class="fs-5 text-muted">{{ date.date }}</p>
+    </div>
+
+    <div class="theatre-block">
+      <div class="theatre-info">
+        <h5>{{ date.theatre.name }}</h5>
+        {% if date.theatre.location %}
+          <small>{{ date.theatre.location }}</small>
+        {% endif %}
+      </div>
+
+      <div class="showtime-buttons">
+        {% for time in date.show_times.all %}
+          <a href="{% url 'book_ticket' movie.id date.id time.id %}" class="showtime-btn">
+            {{ time.time|time:"h:i A" }}
+          </a>
+        {% empty %}
+          <span class="no-showtime">No showtimes</span>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock content %}

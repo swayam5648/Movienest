@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% load static %}
+<style>
+.card-title {
+    font-size: 1.1rem;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+img.rounded {
+    border-radius: 10px;
+}
+
+</style>
+<h3 class="mb-4 fw-bold">My Reviews</h3>
+
+<div class="row row-cols-1 gy-4">
+    {% for review in reviews %}
+    <div class="col">
+        <div class="card shadow-sm border-0 d-flex flex-row" style="max-width: 600px;">
+            {% if review.movie.poster %}
+            <img src="{{ review.movie.poster.url }}" alt="{{ review.movie.title }}"
+                 class="rounded-start" style="width: 120px; object-fit: cover;">
+            {% endif %}
+            <div class="p-3">
+                <h5 class="card-title mb-1 fw-semibold">{{ review.movie.title }}</h5>
+                <p class="mb-1"><strong>Rating:</strong> {{ review.rating }} ★</p>
+                <p class="mb-1">{{ review.comment }}</p>
+                <small class="text-muted">{{ review.created_at|date:"M d, Y" }}</small>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No reviews yet.</p>
+    {% endfor %}
+</div>

@@ -1,0 +1,83 @@
+{% extends "navbar/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block head %}
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'movies/CSS/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4 text-center text-gradient">Search Results for "{{ query }}"</h2>
+  <div class="underline"></div>
+
+  <div class="row g-4 justify-content-center">
+    {% for movie in movies %}
+    <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            {% if movie.poster %}
+              <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+            {% else %}
+              <img src="{% static 'movies/images/default.jpg' %}" alt="No Poster">
+            {% endif %}
+            <div class="overlay">
+              <h5>{{ movie.title }}</h5>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <h5>{{ movie.title }}</h5>
+            <p class="desc">{{ movie.description|truncatechars:100 }}</p>
+
+            <span class="genre">
+              {% for g in movie.genre.all %}
+                {{ g.name }}{% if not forloop.last %}, {% endif %}
+              {% empty %}
+                No genre
+              {% endfor %}
+            </span>
+
+            <p class="price">
+              Ticket: 
+              {% if movie.price == 0 %}
+                Free
+              {% else %}
+                ₹{{ movie.price }}
+              {% endif %}
+            </p>
+
+            <p class="release-date">{{ movie.release_date|date:"F j, Y" }}</p>
+
+            <!-- Star Rating -->
+            <div class="star-rating mt-2">
+              {% with movie.avg_rating|default:0|divide:2 as avg_out_of_5 %}
+                {% for i in "12345" %}
+                  {% if forloop.counter <= avg_out_of_5 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                  {% else %}
+                    <i class="bi bi-star text-warning"></i>
+                  {% endif %}
+                {% endfor %}
+                <small class="d-block">({{ movie.avg_rating|default:"0.0"|floatformat:1 }}/10)</small>
+              {% endwith %}
+            </div>
+
+            <a href="{% url 'movie_detail' movie.id %}" class="more-info-btn mt-2">More Info</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <div class="alert alert-warning text-center">No movies found for "{{ query }}"</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

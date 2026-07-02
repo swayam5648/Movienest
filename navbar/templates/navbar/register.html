@@ -1,0 +1,117 @@
+{% extends "navbar/base.html" %}
+{% load static %}
+{% block title %}Register{% endblock title %}
+
+{% block head %}
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'navbar/CSS/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+
+      <div class="w-100 p-4 rounded shadow register-card">
+        <h2 class="fs-3 fw-bold text-center mb-4 glow-text">Create an Account</h2>
+
+        <form action="{% url 'register' %}" method="post" novalidate>
+          {% csrf_token %}
+
+          <!-- Name Field -->
+          <div class="mb-3">
+            <label for="name" class="form-label small fw-medium">Name</label>
+            <input type="text" name="name" id="name" value="{{ form.name.value|default:'' }}" class="input1" placeholder="Enter your name..." required>
+            {% if form.name.errors %}
+              <div class="text-danger small mt-1">
+                {% for error in form.name.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Email Field -->
+          <div class="mb-3">
+            <label for="email" class="form-label small fw-medium">Email</label>
+            <input type="email" name="email" id="email" value="{{ form.email.value|default:'' }}" class="input1" placeholder="you@gmail.com" required>
+            {% if form.email.errors %}
+              <div class="text-danger small mt-1">
+                {% for error in form.email.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- City Field -->
+          <div class="mb-3">
+            <label for="city" class="form-label small fw-medium">City</label>
+            <input type="text" name="city" id="city" value="{{ form.city.value|default:'' }}" class="input1" placeholder="Enter your city..." required>
+            {% if form.city.errors %}
+              <div class="text-danger small mt-1">
+                {% for error in form.city.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Password Field -->
+          <div class="mb-3">
+            <label for="password" class="form-label small fw-medium">Password</label>
+            <input type="password" name="password" id="password" class="input1" placeholder="••••••••" required>
+            {% if form.password.errors %}
+              <div class="text-danger small mt-1">
+                {% for error in form.password.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Confirm Password Field -->
+          <div class="mb-3">
+            <label for="confirm_password" class="form-label small fw-medium">Confirm Password</label>
+            <input type="password" name="confirm_password" id="confirm_password" class="input1" placeholder="••••••••" required>
+            {% if form.confirm_password.errors %}
+              <div class="text-danger small mt-1">
+                {% for error in form.confirm_password.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Register Button -->
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn-rose">
+              <i class="bi bi-person-plus-fill me-1"></i> Register
+            </button>
+          </div>
+        </form>
+
+        <!-- Divider -->
+        <div class="position-relative my-4">
+          <div class="position">
+            <div class="w-100 border-top"></div>
+          </div>
+          <div class="position-relative d-flex justify-content-center small">
+            <span class="px-2">Or</span>
+          </div>
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center">
+          <p class="small" style="color: #9ca3af;">
+            Existing user?
+            <a href="{% url 'login' %}" class="link">Login Now</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

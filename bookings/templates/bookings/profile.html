@@ -1,0 +1,12 @@
+{% extends "navbar/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h3 class="mb-4">Your Profile Information</h3>
+        <p><strong>Name:</strong> {{ request.user.name }}</p>
+        <p><strong>Email:</strong> {{ request.user.email }}</p>
+        <p><strong>City:</strong> {{ request.user.city|default:"Not Provided" }}</p>
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary mt-3"> Edit Profile</a>
+    </div>
+</div>
+{% endblock %}

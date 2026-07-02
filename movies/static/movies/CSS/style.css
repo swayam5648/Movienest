@@ -1,0 +1,505 @@
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+  font-family: 'Poppins';
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #ff512f, #dd2476);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.underline {
+  width: 80px;
+  height: 4px;
+  background: #ff512f;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+
+.flip-card {
+  max-width: 260px;
+  width: 100%;
+  margin: auto;
+  aspect-ratio: 2/3;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Front side */
+.flip-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* Back side */
+.flip-card-back {
+  background-color: #ffffff;
+  color: #0d6efd;
+  transform: rotateY(180deg);
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flip-card-back h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.flip-card-back .desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.flip-card-back .genre {
+  font-size: 0.85rem;
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+.flip-card-back .price {
+  font-size: 0.85rem;
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+.flip-card-back .release-date {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+/* More Info Button */
+.more-info-btn {
+  display: inline-block;
+  background-color: #0d6efd;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.more-info-btn .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.more-info-btn:hover {
+  background-color: #0b5ed7;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+}
+
+.more-info-btn:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* Movie_Detail.html */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.movie-detail-container {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.top-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.movie-poster {
+  flex: 1 1 300px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.movie-poster img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out, box-shadow 0.3s ease-in-out;
+  display: block;
+}
+
+.movie-poster:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+  box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.9);
+  z-index: 2;
+}
+
+/* Diagonal Shimmer Effect */
+.movie-poster::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.0) 50%, rgba(255,255,255,0.1) 100%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.movie-poster:hover::before {
+  opacity: 1;
+  animation: shineDiagonal 1s linear;
+}
+
+@keyframes shineDiagonal {
+  0% {
+    transform: translate(-100%, -100%) rotate(25deg);
+  }
+  100% {
+    transform: translate(100%, 100%) rotate(25deg);
+  }
+}
+
+.movie-info {
+  flex: 2 1 500px;
+}
+
+.movie-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #dc3545;
+  margin-bottom: 20px;
+}
+
+.movie-info p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.movie-info strong {
+  color: #0d6efd;
+  width: 120px;
+  display: inline-block;
+}
+
+.movie-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.movie-buttons a {
+  background-color: #ffc107;
+  color: #212529;
+  padding: 10px 22px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.movie-buttons a:hover {
+  background-color: #e0a800;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+video, audio {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.modal-content img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.cast-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn-primary-custom {
+  background-color: #0d6efd;
+  color: white;
+  padding: 10px 22px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+  background-color: #0b5ed7;
+}
+
+/* Songs.html */
+.song-card .circle-container {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid white;
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.song-card .circle-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+/* 👇 Zoom effect on hover */
+.song-card .circle-container:hover img {
+  transform: scale(1.1);
+}
+
+.song-card .circle-container .hover-buttons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.song-card .circle-container:hover .hover-buttons {
+  opacity: 1;
+}
+
+.hover-buttons button, .hover-buttons a {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+.song-title {
+  margin-top: 12px;
+  font-weight: 600;
+  color: #222;
+  font-size: 14px;
+}
+
+.songs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.song-card-wrapper {
+  flex: 0 0 200px;
+}
+
+/* Cast.html */
+.cast-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.cast-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+}
+
+.cast-name {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.cast-character {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.cast-card img {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  transition: transform 0.3s;
+}
+
+.cast-card:hover img {
+  transform: scale(1.1);
+}
+
+.cast-tooltip {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.cast-card:hover .cast-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Cast.html */
+.cast-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.cast-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+}
+
+.cast-name {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.cast-character {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.cast-card img {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  transition: transform 0.3s;
+}
+
+.cast-card:hover img {
+  transform: scale(1.1);
+}
+
+.cast-tooltip {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.cast-card:hover .cast-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* my_bookings.html */
+.cancel-btn {
+  background-color: #e63946; 
+  color: white;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #c82333; 
+  transform: scale(1.05);
+}

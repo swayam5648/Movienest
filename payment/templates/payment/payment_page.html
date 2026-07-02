@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment - MovieNest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Razorpay -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .payment-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .payment-card {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .payment-card h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        #pay-btn {
+            background-color: #3399cc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        #pay-btn:hover {
+            background-color: #287ba6;
+        }
+
+        #loader {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-card">
+            <h1>Proceed to Payment</h1>
+            <button id="pay-btn">Pay Now</button>
+
+            <!-- Loader -->
+            <div id="loader">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Redirecting to payment...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const options = {
+            "key": "{{ razorpay_key_id }}",
+            "amount": "{{ amount|safe }}",
+            "currency": "{{ currency }}",
+            "name": "MovieNest",
+            "description": "Booking Payment",
+            "image": "{% static 'images/logo.png' %}",
+            "order_id": "{{ order_id }}",
+            "prefill": {
+                "name": "{{ prefill_name }}",
+                "email": "{{ prefill_email }}",
+                "contact": "{{ prefill_contact }}"
+            },
+            "callback_url": "{% url 'payment:payment_success' %}",  // ✅ Razorpay redirects here after success
+            "modal": {
+                "ondismiss": function () {
+                    fetch("{% url 'payment:payment_failed' %}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        }
+                    }).then(() => {
+                        window.location.href = "{% url 'user_dashboard' %}";
+                    });
+                }
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+
+        const rzp1 = new Razorpay(options);
+
+        document.getElementById('pay-btn').onclick = function (e) {
+            e.preventDefault();
+            document.getElementById('loader').style.display = 'block';
+            setTimeout(() => {
+                rzp1.open();
+                document.getElementById('loader').style.display = 'none';
+            }, 500);
+        };
+    </script>
+</body>
+</html>
